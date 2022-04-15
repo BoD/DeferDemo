@@ -15,11 +15,11 @@ type UserInfo {
 }
 
 type Project {
-  id: ID
+  id: ID!
 
-  name: String
+  name: String!
 
-  numberOfStars: Int
+  numberOfStars: Int!
 }
 
 schema {

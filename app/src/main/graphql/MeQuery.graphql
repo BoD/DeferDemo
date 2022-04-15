@@ -1,15 +1,18 @@
 query MeQuery {
   me {
-    id
-    firstName
-    lastName
-    email
-
-    ...Projects @defer
+    ...UserInfoBasic
+    ...UserInfoProjects @defer
   }
 }
 
-fragment Projects on UserInfo {
+fragment UserInfoBasic on UserInfo {
+  id
+  firstName
+  lastName
+  email
+}
+
+fragment UserInfoProjects on UserInfo {
   projects {
     id
     name

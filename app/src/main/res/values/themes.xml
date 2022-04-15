@@ -3,5 +3,6 @@
 
     <style name="Theme.DeferDemo" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/purple_700</item>
+        <item name="android:colorBackground">@color/lightGray</item>
     </style>
 </resources>

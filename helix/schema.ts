@@ -38,13 +38,13 @@ export const schema = new GraphQLSchema({
 
                 fields: () => ({
                   id: {
-                    type: GraphQLID,
+                    type: new GraphQLNonNull(GraphQLID),
                   },
                   name: {
-                    type: GraphQLString,
+                    type: new GraphQLNonNull(GraphQLString),
                   },
                   numberOfStars: {
-                    type: GraphQLInt,
+                    type: new GraphQLNonNull(GraphQLInt),
                   },
                 })
               })))),
