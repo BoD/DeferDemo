@@ -1,0 +1,18 @@
+query MeQuery {
+  me {
+    id
+    firstName
+    lastName
+    email
+
+    ...Projects @defer
+  }
+}
+
+fragment Projects on UserInfo {
+  projects {
+    id
+    name
+    numberOfStars
+  }
+}

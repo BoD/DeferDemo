@@ -1,0 +1,27 @@
+type Query {
+  me: UserInfo!
+}
+
+type UserInfo {
+  id: ID!
+
+  firstName: String!
+
+  lastName: String!
+
+  email: String
+
+  projects: [Project!]!
+}
+
+type Project {
+  id: ID
+
+  name: String
+
+  numberOfStars: Int
+}
+
+schema {
+  query: Query
+}
