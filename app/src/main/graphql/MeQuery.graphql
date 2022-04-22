@@ -1,3 +1,5 @@
+# noinspection GraphQLUnresolvedReference
+
 query MeQuery {
   me {
     ...UserInfoBasic
