@@ -72,6 +72,42 @@ export const schema = new GraphQLSchema({
     }),
   }),
 
+  subscription: new GraphQLObjectType({
+    name: "Subscription",
+    fields: () => ({
+      count: {
+        type: new GraphQLObjectType({
+          name: "Counter",
+
+          fields: () => ({
+            value: {
+              type: new GraphQLNonNull(GraphQLInt),
+            },
+            valueTimesTwo: {
+              type: new GraphQLNonNull(GraphQLInt),
+            },
+          })
+        }),
+        args: {
+          to: {
+            type: GraphQLInt,
+          },
+        },
+        subscribe: async function* (_root, args) {
+          for (let count = 1; count <= args.to; count++) {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            yield {
+              "count": {
+                "value": count,
+                "valueTimesTwo": count * 2,
+              }
+            };
+          }
+        },
+      },
+    }),
+  }),
+
   directives: [
     ...specifiedDirectives,
     GraphQLDeferDirective,
