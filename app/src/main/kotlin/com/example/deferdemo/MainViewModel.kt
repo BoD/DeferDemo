@@ -23,10 +23,12 @@ class MainViewModel : ViewModel() {
         .toFlow()
         .map { response ->
             val data = response.dataAssertNoErrors
-            if (data.me.userInfoProjects != null) {
-                MainUiModel.LoadedFull(data.me)
-            } else {
+            if (data.me.userInfoProjects == null) {
+                // 1st payload: no projects
                 MainUiModel.LoadedBasic(data.me.userInfoBasic)
+            } else {
+                // 2nd payload: full
+                MainUiModel.LoadedFull(data.me)
             }
         }
         .onStart { delay(1000) }
