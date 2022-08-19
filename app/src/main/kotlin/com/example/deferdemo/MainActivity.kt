@@ -1,32 +1,17 @@
 package com.example.deferdemo
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.example.deferdemo.graphql.fragment.UserInfoBasic
-import com.example.deferdemo.graphql.fragment.UserInfoProjects
-import com.example.deferdemo.ui.theme.DeferDemoTheme
+import android.os.*
+import androidx.activity.*
+import androidx.activity.compose.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.*
+import androidx.compose.ui.res.*
+import androidx.compose.ui.tooling.preview.*
+import androidx.compose.ui.unit.*
+import com.example.deferdemo.graphql.fragment.*
+import com.example.deferdemo.ui.theme.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,7 +69,8 @@ private fun MainContents(uiModel: MainViewModel.MainUiModel) {
 @Composable
 private fun BasicInfo(basicInfo: UserInfoBasic) {
     Card(
-        Modifier.fillMaxWidth()
+        Modifier.fillMaxWidth(),
+        elevation = 4.dp,
     ) {
         Column(Modifier.padding(16.dp)) {
             Text(basicInfo.firstName)
@@ -101,12 +87,15 @@ private fun BasicInfo(basicInfo: UserInfoBasic) {
 @Composable
 private fun ProjectList(projectList: List<UserInfoProjects.Project>?) {
     Card(
-        Modifier.fillMaxWidth()
+        Modifier.fillMaxWidth(),
+        elevation = 4.dp,
     ) {
         if (projectList == null) {
-            Box(Modifier
-                .fillMaxWidth()
-                .padding(16.dp), Alignment.Center) {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp), Alignment.Center
+            ) {
                 CircularProgressIndicator()
             }
         } else {
