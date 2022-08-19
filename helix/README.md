@@ -1,3 +1,3 @@
 To run this:
-- `npm install` (only the first time)
+- `npm install` (Only the first time. You may need `--force`.)
 - `npm start`
