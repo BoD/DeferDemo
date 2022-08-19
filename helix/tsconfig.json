@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "target": "es2018",
-    "lib": ["es2018", "dom"],
-    "module": "commonjs",
+    "lib": ["ES2022"],
+    "module": "ES2022",
     "moduleResolution": "node",
+    "target": "ES2022",
     "declaration": true,
     "checkJs": false,
     "strict": true,
