@@ -1,25 +1,109 @@
+type DeliveryEstimates {
+  estimatedDelivery: String
+
+  fastestDelivery: String
+}
+
+type Panda {
+  name: ID!
+
+  favoriteFood: String
+}
+
+type Product implements ProductItf & SkuItf {
+  id: ID!
+
+  dimensions: ProductDimension
+
+  delivery(zip: String): DeliveryEstimates
+
+  sku: String
+
+  package: String
+
+  variation: ProductVariation
+
+  createdBy: User
+
+  hidden: String
+
+  reviewsScore: Float!
+
+  reviewsCount: Int!
+
+  reviews: [Review!]!
+}
+
+type ProductDimension {
+  size: String
+
+  weight: Float
+}
+
+interface ProductItf implements SkuItf {
+  id: ID!
+
+  dimensions: ProductDimension
+
+  delivery(zip: String): DeliveryEstimates
+
+  sku: String
+
+  package: String
+
+  variation: ProductVariation
+
+  createdBy: User
+
+  reviewsCount: Int!
+
+  reviewsScore: Float!
+
+  reviews: [Review!]!
+}
+
+type ProductVariation {
+  id: ID!
+
+  name: String
+}
+
 type Query {
-  me: UserInfo!
+  allPandas: [Panda]
+
+  panda(name: ID!): Panda
+
+  allProducts: [ProductItf]
+
+  product(id: ID!): ProductItf
+
+  review(id: Int!): Review
 }
 
-type UserInfo {
-  id: ID!
+type Review {
+  id: Int!
 
-  firstName: String!
-
-  lastName: String!
-
-  email: String
-
-  projects: [Project!]!
+  body: String!
 }
 
-type Project {
-  id: ID!
+enum ShippingClass {
+  STANDARD
 
-  name: String!
+  EXPRESS
 
-  numberOfStars: Int!
+  OVERNIGHT
+}
+
+interface SkuItf {
+  sku: String
+}
+
+type User {
+  email: ID!
+
+  totalProductsCreated: Int
+
+  name: String
 }
 
 schema {
