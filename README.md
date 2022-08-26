@@ -53,3 +53,9 @@ fragment ProductInfoInventory on Product {
 ```
 
 This way, fast fields can be received as soon as available, while the slower fields are received asynchronously.
+
+## Alternative branch using GraphQL Helix
+
+In the [`helix`](https://github.com/BoD/DeferDemo/tree/helix) branch, an alternative version of this demo is available, which uses an instance of the [GraphQL Helix](https://www.graphql-helix.com/) server instead of the Apollo Supergraph demo. It may be easier to setup.
+
+Checkout the `helix` branch and follow the instructions in the [`helix/README.md`](https://github.com/BoD/DeferDemo/blob/helix/helix/README.md) file to start the server.
