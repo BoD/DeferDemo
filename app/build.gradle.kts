@@ -62,4 +62,10 @@ dependencies {
 
 apollo {
     packageName.set("com.example.deferdemo.graphql")
+    introspection {
+        endpointUrl.set("http://localhost:4000/")
+        schemaFile.set(file("src/main/graphql/schema.graphqls"))
+    }
 }
+
+// `./gradlew downloadServiceApolloSchemaFromIntrospection` to download the schema

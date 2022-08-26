@@ -1,0 +1,26 @@
+# noinspection GraphQLUnresolvedReference
+
+
+query ProductQuery {
+  product(id: "apollo-federation") {
+    ...ProductInfoBasic
+    ...ProductInfoInventory @defer
+  }
+}
+
+# Basic info (fast)
+fragment ProductInfoBasic on Product {
+  id
+  sku
+  dimensions {
+    size
+  }
+}
+
+# Inventory (slow)
+fragment ProductInfoInventory on Product {
+  delivery {
+    estimatedDelivery
+    fastestDelivery
+  }
+}
