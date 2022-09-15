@@ -1,7 +1,7 @@
 import express from "express";
-import { WebSocketServer } from 'ws';
+import {WebSocketServer} from 'ws';
 import cors from 'cors';
-import { useServer } from "graphql-ws/lib/use/ws";
+import {useServer} from "graphql-ws/lib/use/ws";
 import {
   getGraphQLParameters,
   processRequest,
@@ -12,9 +12,9 @@ import {
 } from "graphql-helix";
 import {
   execute,
-  subscribe,
-  GraphQLError,
+  GraphQLBoolean,
   GraphQLDeferDirective,
+  GraphQLError,
   GraphQLID,
   GraphQLInt,
   GraphQLList,
@@ -24,6 +24,7 @@ import {
   GraphQLStreamDirective,
   GraphQLString,
   specifiedDirectives,
+  subscribe,
 } from "graphql";
 
 const app = express();
@@ -35,61 +36,62 @@ const schema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: "Query",
     fields: () => ({
-      me: {
-        type: new GraphQLNonNull(new GraphQLObjectType({
-          name: "UserInfo",
+      computers: {
+        type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(new GraphQLObjectType({
+          name: "Computer",
 
           fields: () => ({
             id: {
               type: new GraphQLNonNull(GraphQLID),
             },
-            firstName: {
+            cpu: {
               type: new GraphQLNonNull(GraphQLString),
             },
-            lastName: {
-              type: new GraphQLNonNull(GraphQLString),
+            year: {
+              type: new GraphQLNonNull(GraphQLInt),
             },
-            email: {
-              type: GraphQLString,
-            },
-            projects: {
-              type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(new GraphQLObjectType({
-                name: "Project",
+            screen: {
+              type: new GraphQLNonNull(new GraphQLObjectType({
+                name: "Screen",
 
                 fields: () => ({
-                  id: {
-                    type: new GraphQLNonNull(GraphQLID),
-                  },
-                  name: {
+                  resolution: {
                     type: new GraphQLNonNull(GraphQLString),
                   },
-                  numberOfStars: {
-                    type: new GraphQLNonNull(GraphQLInt),
+                  isColor: {
+                    type: new GraphQLNonNull(GraphQLBoolean),
                   },
-                })
-              })))),
-
-              resolve: () =>
-                new Promise((resolve) =>
-                  setTimeout(
-                    () => resolve([
-                      {"id": "project1", "name": "Test project", "numberOfStars": 2},
-                      {"id": "project2", "name": "First real project", "numberOfStars": 4},
-                      {"id": "project3", "name": "Dope project", "numberOfStars": 1},
-                      {"id": "project4", "name": "Project Phoenix", "numberOfStars": 5},
-                      {"id": "project6", "name": "Project Blue Pill", "numberOfStars": 12},
-                    ]),
-                    4000
-                  )
-                ),
+                }),
+              }))
             },
           })
-        })),
+        })))),
 
-        resolve: () => ({"id": "User1", "firstName": "Benoit", "lastName": "Lubek", "email": "BoD@JRAF.org"}),
-
+        resolve: () => (
+          [
+            {
+              "id": "Computer1",
+              "cpu": "386",
+              "year": 1993,
+              "screen": {
+                "resolution": "640x480",
+                "isColor": false
+              }
+            },
+            {
+              "id": "Computer2",
+              "cpu": "486",
+              "year": 1996,
+              "screen": {
+                "resolution": "800x600",
+                "isColor": true
+              }
+            }
+          ]
+        ),
       },
     }),
+
   }),
 
   subscription: new GraphQLObjectType({
@@ -146,14 +148,14 @@ app.use("/graphql", async (req, res) => {
 
   if (shouldRenderGraphiQL(request)) {
     res.send(
-        renderGraphiQL({
-          subscriptionsEndpoint: "ws://localhost:4000/graphql",
-        })
+      renderGraphiQL({
+        subscriptionsEndpoint: "ws://localhost:4000/graphql",
+      })
     );
     return;
   }
 
-  const { operationName, query, variables } = getGraphQLParameters(request);
+  const {operationName, query, variables} = getGraphQLParameters(request);
 
   const result = await processRequest({
     operationName,
@@ -183,7 +185,7 @@ const server = app.listen(port, () => {
     path: "/graphql",
   });
 
-  useServer({ schema, execute, subscribe }, wsServer);
+  useServer({schema, execute, subscribe}, wsServer);
 
   console.log(`GraphQL server is running on port ${port}.`);
 });
