@@ -24,11 +24,13 @@ You should see a screen showing:
 1. Basic product information (Id. SKU, Size)
 2. After a few seconds: more information about inventory (estimated delivery, fastest delivery)
 
+<img src="https://raw.githubusercontent.com/BoD/DeferDemo/master/screenrecord.gif" width="320" />
+
 This is because the inventory fields are queried in a fragment with the `@defer` directive:
 
 ```graphql
 query ProductQuery {
-  product(id: "apollo-federation") {
+  product(id: "converse-1") {
     ...ProductInfoBasic
     ...ProductInfoInventory @defer # <- here!
   }

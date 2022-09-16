@@ -2,7 +2,7 @@
 
 
 query ProductQuery {
-  product(id: "apollo-federation") {
+  product(id: "converse-1") {
     ...ProductInfoBasic
     ...ProductInfoInventory @defer
   }
