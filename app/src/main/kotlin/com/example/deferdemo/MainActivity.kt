@@ -164,8 +164,9 @@ private fun MainLayoutLoadedFullPreview() {
                     delivery = ProductInfoInventory.Delivery(
                         estimatedDelivery = "2022-09-05",
                         fastestDelivery = "2022-09-01"
-                    )
-                )
+                    ),
+                    variation = ProductInfoInventory.Variation("42")
+                ),
             )
         )
     )

@@ -19,6 +19,9 @@ fragment ProductInfoBasic on Product {
 
 # Inventory (slow)
 fragment ProductInfoInventory on Product {
+  variation {
+    id
+  }
   delivery {
     estimatedDelivery
     fastestDelivery
