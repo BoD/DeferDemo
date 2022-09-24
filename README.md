@@ -7,14 +7,19 @@ A simple Android demo app that shows how to use the `@defer` directive with Apol
 The server used by this app is the Apollo Router from the [Supergraph Demo for Federation 2](https://github.com/apollographql/supergraph-demo-fed2).
 
 To setup the server:
-- You'll need docker and docker-compose
-- Clone the Supergraph Demo for Federation 2 repository: `git clone git@github.com:apollographql/supergraph-demo-fed2.git`
-- In this repo, execute:
-  - `make docker-build-router-image`
-  - `make docker-up-local-router-custom-image`
-- A GraphQL server will now be listening for connections at http://localhost:4000.
 
-Full setup instructions and more information available [here](https://github.com/apollographql/supergraph-demo-fed2).
+1. You'll need docker and docker-compose
+2. Start a supergraph:
+
+```
+git clone git@github.com:apollographql/supergraph-demo-fed2.git
+cd supergraph-demo-fed2
+make up-supergraph-no-otel-local
+```
+
+A GraphQL server will now be listening for connections at http://localhost:4000.
+
+Full setup instructions and more information available [here](https://github.com/apollographql/supergraph-demo-fed2#apollo-router-entity-based-defer).
 
 You can now run the Android app on an emulator.
 
